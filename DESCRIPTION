@@ -1,0 +1,11 @@
+Package: RSymPy
+Version: 0.1
+Date: 2008-12-15
+Title: R interface to sympy computer algebra system
+Author: G Grothendieck
+Maintainer: G Grothendieck <ggrothendieck@gmail.com>
+Description: Interface to access sympy from R
+Depends: R, rJava
+LazyLoad: yes
+License: GPL-2
+URL: http://Rsympy.googlecode.com, http://sympy.googlecode.com, http://www.jython.org/Project/
