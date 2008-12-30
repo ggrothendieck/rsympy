@@ -3,7 +3,7 @@ sympyStart <- function() {
 	jython <- Sys.getenv("RSYMPY_JYTHON")
 	if (jython == "") {
 		# jython <- "C:/jython2.5b0"
-		jython <- system.file("jython", package = "RSymPy")
+		jython <- system.file("jython", package = "rSymPy")
 	}
 	library(rJava)
 	.jinit(file.path(jython, "jython-complete.jar"))
