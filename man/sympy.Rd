@@ -52,7 +52,9 @@ sympy("y")
 
 sympy("limit(1/x, x, oo)")
 
-sympy("(1/cos(x)).series(x, 0, 10)")
+# the next line fails under jython even without R
+# and seems to corrupt the rest of the session
+# sympy("(1/cos(x)).series(x, 0, 10)")
 
 sympy("diff(sin(2*x), x, 1)")
 sympy("diff(sin(2*x), x, 2)")
