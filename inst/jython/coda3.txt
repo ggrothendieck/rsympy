@@ -1,1 +1,0 @@
-WinBUGS did not run correctly.
