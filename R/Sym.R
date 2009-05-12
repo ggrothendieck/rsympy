@@ -24,9 +24,80 @@ print.Sym <- function(x, ...) print(sympy(unclass(x), ...))
 deriv.Sym <- function(expr, name = "x", n = 1, ...) 
 	Sym("diff(", expr, ", ", name, ",", n, ")")
 
-
+transtab <- matrix( c(
+	#R			not_used	sympy
+	"exp", 		"exp", 		"exp"
+), byrow = TRUE, ncol = 3)
+colnames(transtab) <- c("R", "OM", "yacas")
 
 if (FALSE) {
+transtab <- matrix( c(
+	"pi",		"pi",		"Pi",
+	"+",		"plus",		"+",
+	"-",		"minus",	"-",
+	"*",		"times",	"*",
+	"/",		"divide",	"/",
+	"/",		"rational",	"/",
+	"^",		"power",	"^",
+	"%%",		"mod",		"Mod",
+	"%/%",		"div",		"Div",
+	"root",		"root",		"NthRoot",
+	"Inf",		"infinity",	"Infinite",
+	"NaN",		"undefined","Undefined",
+	
+	"sin",		"Sin",		"Sin",
+	"cos",		"Cos",		"Cos",
+	"tan",		"Tan",		"Tan",
+	
+	"asin",		"arcsin",	"ArcSin",
+	"acos",		"arccos",	"ArcCos",
+	"atan", 	"arctan", 	"ArcTan",
+	"asinh", 	"arcsinh", 	"ArcSinh", 
+	"acosh", 	"arccosh", 	"ArcCosh", 
+	"atanh", 	"arctanh", 	"ArcTanh",
+	
+	"acsc",		"arccsc",	"ArcCsc",
+	"acsch",	"arccsch",	"ArcCsch",
+	
+	"asec",		"arcsec",	"ArcSec",
+	"asech",	"arcsech",	"ArcSech",
+	
+	"acot",		"arccot",	"ArcCot",
+	"acoth",	"arccoth",	"ArcCoth",
+	
+	"log", 		"ln", 		"Ln",
+	"sqrt", 	"sqrt", 	"Sqrt",
+	"choose", 	"bin", 		"Bin",
+	"gamma", 	"gamma", 	"Gamma",
+	
+	"!",		"not",		"Not",
+	"==",		"eq",		"=",
+	"==",		"equivalent","=",
+	">=",		"geq",		">=",
+	">", 		"gt",		">",
+	"<=", 		"leq",		"<=",
+	"<", 		"lt",		"<",
+	"!=", 		"neq",		"!=",
+	":", 		"seq",		"sequence",
+	":", 		"seq",		"..",
+	
+	"factorial","factorial","factorial",
+	"factorial","factorial","!",
+	"limit", 	"lim", 		"Limit",
+	"deriv", 	"deriv", 	"Deriv",
+	"integrate","integrate","Integrate",
+	"?",		"taylor",	"Taylor",
+
+	"list",		"List", 	"List",
+	"TRUE",		"true", 	"True",
+	"<-",		"?",		":=",
+	"Expr",		"?",		"",
+	"Exprq", 	"?",		"",
+	"expression", 	"?", 		""
+	
+), byrow = TRUE, ncol = 3)
+colnames(transtab) <- c("R", "OM", "yacas")
+
 as.Sym <- function(x, ...) UseMethod("as.Sym")
 as.Sym.yacas <- function(x, ...) Sym(format(yparse(x[[1]])))
 as.Sym.Expr <- function(x, ...) Sym(format(yparse(x)))
