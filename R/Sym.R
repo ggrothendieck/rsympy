@@ -24,6 +24,9 @@ print.Sym <- function(x, ...) print(sympy(unclass(x), ...))
 deriv.Sym <- function(expr, name = "x", n = 1, ...) 
 	Sym("diff(", expr, ", ", name, ",", n, ")")
 
+limit <- function(expr, name = "x", value) 
+	Sym("limit(", expr, ",", name, ",", value, ")")
+
 transtab <- matrix( c(
 	#R			not_used	sympy
 	"exp", 		"exp", 		"exp"
