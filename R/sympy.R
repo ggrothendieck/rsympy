@@ -19,13 +19,16 @@ sympyStart <- function() {
 	.jcall(.Rsympy, "V", "exec", "from sympy import *")
 }
 
-sympy <- function(..., output = TRUE, debug = FALSE) {
+sympy <- function(..., retclass = c("character", "Sym", "NULL"), debug = FALSE) {
 	if (!exists(".Rsympy", .GlobalEnv)) sympyStart()
-	if (output) {
+    retclass <- match.arg(retclass)
+	if (retclass != "NULL") {
 		.jcall(.Rsympy, "V", "exec", paste("__Rsympy=", ...))
 		if (debug) .jcall(.Rsympy, "V", "exec", "print __Rsympy")
 		Rsympy <- .jcall(.Rsympy, "Lorg/python/core/PyObject;", "get", "__Rsympy")
-		if (!is.null(Rsympy)) .jstrVal(Rsympy)
+		out <- if (!is.null(Rsympy)) .jstrVal(Rsympy)
+        if (!is.null(out) && retclass == "Sym") structure(out, class = "Sym")
+		else out
 	} else .jcall(.Rsympy, "V", "exec", paste(...))
 }
 

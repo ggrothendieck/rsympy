@@ -1,8 +1,9 @@
 
-Sym <- function(...) {
+Sym <- function(..., retclass = c("Sym", "character")) {
    args <- list(...)
+   retclass <- match.arg(retclass)
    value <- if (length(args) > 1) paste("(", ..., ")") else paste(args[[1]])
-   class(value) <- c("Sym", "character")
+   if (retclass == "Sym") class(value) <- c("Sym", "character")
    value
 }
 
@@ -32,6 +33,11 @@ transtab <- matrix( c(
 	"exp", 		"exp", 		"exp"
 ), byrow = TRUE, ncol = 3)
 colnames(transtab) <- c("R", "OM", "yacas")
+
+Var <- function(x, retclass = c("Sym", "character", "NULL")) {
+	x <- paste("var('", x, "')", sep = "")
+	sympy(x, retclass = match.arg(retclass))
+}
 
 if (FALSE) {
 transtab <- matrix( c(

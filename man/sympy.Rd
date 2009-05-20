@@ -6,13 +6,14 @@
   Interface to the sympy computer algebra system.
 }
 \usage{
-sympy(..., output = TRUE, debug = FALSE)
+sympy(..., retclass = c("character", "Sym", "NULL"), debug = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{\dots}{Character strings which are pasted together with space 
 	separators.  The resulting string is passed to sympy.}
-  \item{output}{Logical.  If FALSE then no output is generated. }
+  \item{retclass}{Character string representing the class of the output or 
+    the string \code{"NULL"} to mean no output. }
   \item{debug}{Logical.  If TRUE then additional debugging info is shown.}
 }
 \details{
