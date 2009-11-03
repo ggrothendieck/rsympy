@@ -25,7 +25,7 @@ print.Sym <- function(x, ...) print(sympy(unclass(x), ...))
 deriv.Sym <- function(expr, name = "x", n = 1, ...) 
 	Sym("diff(", expr, ", ", name, ",", n, ")")
 
-limit <- function(expr, name = "x", value) 
+Limit <- function(expr, name = "x", value) 
 	Sym("limit(", expr, ",", name, ",", value, ")")
 
 transtab <- matrix( c(
@@ -38,6 +38,20 @@ Var <- function(x, retclass = c("Sym", "character", "NULL")) {
 	x <- paste("var('", x, "')", sep = "")
 	sympy(x, retclass = match.arg(retclass))
 }
+
+solve.Sym <- function(a, b, method = c("'GE'", "'ADJ'", "'LU'"), ...) {
+	stopifnot(missing(b))
+	Sym(paste("(", a, ").inv(", match.arg(method), ")"))
+}
+
+Integrate <- function(x, ...) Sym("integrate(", paste(x, ..., sep = ","), ")")
+
+t.Sym <- function(x) Sym(paste("(", x, ").transpose()"))
+List <- function(...) Sym("[", paste( ..., sep = ","), "]")
+Matrix <- function(...) Sym("Matrix(", paste(..., sep = ","), ")")
+Zero <- function(n) Sym(paste("zero(", n, ")"))
+Eye <- function(n) Sym(paste("eye(", n, ")"))
+Zeros <- function(m, n) Sym(paste("zero(", m, ",", n, ")"))
 
 if (FALSE) {
 transtab <- matrix( c(
@@ -196,8 +210,8 @@ Subst <- function(expr, ...) UseMethod("Subst")
 Subst.default <- function(expr, x, replacement, ...) 
 	Sym("Subst(", x, ",", replacement, ")", expr)
 
-Inverse <- function(x, ...) UseMethod("Inverse")
-Inverse.default <- function(x, ...) Sym("Inverse(", x, ")")
+Inverse <- function(x, ...) Sym("Inverse(", x, ")")
+
 
 determinant.Sym <- function(x, ...) Sym("Determinant(", x, ")")
 

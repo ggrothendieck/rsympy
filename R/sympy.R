@@ -1,34 +1,35 @@
 
 sympyStart <- function() {
-	jython <- Sys.getenv("RSYMPY_JYTHON")
-	if (jython == "") {
-		# jython <- "C:/jython2.5b0"
-		jython <- system.file("jython", package = "rSymPy")
+	system.file. <- function(...) {
+		s <- system.file(...)
+		if (.Platform$OS == "windows") gsub("/", "\\", s, fixed = TRUE) else s
 	}
-	library(rJava)
-	.jinit(file.path(jython, "jython-complete.jar"))
+	jython.jar <- Sys.getenv("RSYMPY_JYTHON")
+	if (jython.jar == "") {
+		# jython <- "C:/jython2.5.1"
+		jython.jar <- system.file.("jython.jar", package = "rSymPy")
+	}
+	stopifnot(require(rJava))
+	.jinit(jython.jar)
 	assign(".Rsympy", .jnew("org.python.util.PythonInterpreter"), .GlobalEnv)
-	.jcall(.Rsympy, "V", "exec", "import sys")
-	.jcall(.Rsympy, "V", "exec", 'print sys.path')
-	.jcall(.Rsympy, "V", "exec", 
-		sprintf("sys.path = ['%s', '%s', '__classpath__', '%s']", jython, 
-			file.path(jython, "Lib"), 
-			file.path(jython, "Lib", "site-packages")
-		)
-	)
-	.jcall(.Rsympy, "V", "exec", "from sympy import *")
+	.Rsympy$exec("import sys")
+	# rSymPy <- system.file.(package = "rSymPy")
+	# .Rsympy$exec(sprintf('sys.path.append("%s")', rSymPy))
+	.Rsympy$exec("from sympy import *")
 }
 
 sympy <- function(..., retclass = c("character", "Sym", "NULL"), debug = FALSE) {
 	if (!exists(".Rsympy", .GlobalEnv)) sympyStart()
     retclass <- match.arg(retclass)
 	if (retclass != "NULL") {
-		.jcall(.Rsympy, "V", "exec", paste("__Rsympy=", ...))
-		if (debug) .jcall(.Rsympy, "V", "exec", "print __Rsympy")
-		Rsympy <- .jcall(.Rsympy, "Lorg/python/core/PyObject;", "get", "__Rsympy")
+		.Rsympy$exec(paste("__Rsympy=", ...))
+		if (debug) .Rsympy$exec("print __Rsympy") 
+		Rsympy <- .Rsympy$get("__Rsympy")
 		out <- if (!is.null(Rsympy)) .jstrVal(Rsympy)
         if (!is.null(out) && retclass == "Sym") structure(out, class = "Sym")
 		else out
-	} else .jcall(.Rsympy, "V", "exec", paste(...))
+	} else .Rsympy$exec(paste(...))
 }
+
+
 

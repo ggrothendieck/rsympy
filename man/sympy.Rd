@@ -1,7 +1,7 @@
 \name{sympy}
 \alias{sympy}
 \alias{sympyStart}
-\title{ ~~function to do ... ~~ }
+\title{ sympy }
 \description{
   Interface to the sympy computer algebra system.
 }

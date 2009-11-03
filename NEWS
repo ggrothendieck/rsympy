@@ -1,0 +1,20 @@
+Changes in Version 0.1-4
+
+o now uses jython.jar and separate sympy tree
+
+o upgraded to Jython 2.5.1 and sympy 0.6.5
+
+o now depends on rJava 0.8-1
+
+Changes in Version 0.1-3
+
+o new "Sym" class with constructor Sym and methods as.character.Sym, 
+  as.expression.Sym, derive.Sym, Math.Sym, Ops.Sym, print.Sym, solve.Sym,
+  t.Sym
+
+o new functions: Eye, Integrate, Limit, List, Matrix, Zero, Zeros
+
+o new function: Var
+
+o sympy has new retclass= argument
+
