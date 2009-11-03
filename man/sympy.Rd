@@ -1,6 +1,7 @@
 \name{sympy}
 \alias{sympy}
 \alias{sympyStart}
+\alias{jythonStart}
 \title{ sympy }
 \description{
   Interface to the sympy computer algebra system.
@@ -20,10 +21,12 @@ sympy(..., retclass = c("character", "Sym", "NULL"), debug = FALSE)
 The \code{sympy} function passes
 an input string to SymPy and returns the output.  The first time
 \code{sympy} is invokved in a session it also starts up SymPy by invoking
-\code{sympyStart}.  As a result the first invocation of sympy can be
-expected to much slower than subsequent ones.
-\code{sympyStart} creates 
-a variable \code{.Rsympy} which is stored in the global environment
+\code{sympyStart} 
+(which sets the appropriate paths, calls \code{jythonStart}
+and then imports \code{sympy}).  As a result the first invocation of sympy 
+can be expected to much slower than subsequent ones.
+\code{jythonStart} creates 
+a variable \code{.Jython} which is stored in the global environment
 holding the connection information to the SymPy/Jython session.
 
 Internally if the argument 
