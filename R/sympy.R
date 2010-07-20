@@ -14,23 +14,9 @@ sympyStart <- function() {
 		if (.Platform$OS == "windows") gsub("/", "\\", s, fixed = TRUE) else s
 	}
 
-	jython.jar <- Sys.getenv("RSYMPY_JYTHON")
-	if (jython.jar == "") {
-		# jython <- "C:/jython2.5.1"
-		jython.jar <- system.file.("jython.jar", package = "rSymPy")
-	}
+    assign(".Jython", rJython( modules = system.file( "Lib", package = "rSymPy" ) ), .GlobalEnv)
 
-	jythonStart(jython.jar)
 	.Jython$exec("import sys")
-
-	# old:
-	# rSymPy <- system.file.(package = "rSymPy")
-	# .Rsympy$exec(sprintf('sys.path.append("%s")', rSymPy))
-
-	# new:
-	# there should be a Lib directory in same directory as jython.jar
-	# and sympy directory should be in Lib.   The sympy directory should
-	# contain core and other sympy directories, etc.
 	.Jython$exec("from sympy import *")
 
 }
