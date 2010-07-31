@@ -1,6 +1,5 @@
 
 jythonStart <- function(jython.jar) {
-	stopifnot(require(rJava))
 	.jinit(jython.jar)
 	assign(".Jython", .jnew("org.python.util.PythonInterpreter"), .GlobalEnv)
 	invisible(.Jython)

@@ -1,6 +1,7 @@
-Changes in Version 0.2-0
+Changes in Version 0.2-1.1
 
-   o now uses rJython (which in turn includes jython) so jython no longer in rSymPy
+   o now uses rJython (which in turn includes jython) so jython no longer 
+     in rSymPy
 
 Changes in Version 0.1-4
 
